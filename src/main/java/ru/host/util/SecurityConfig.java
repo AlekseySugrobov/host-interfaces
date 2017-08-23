@@ -38,11 +38,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .and()
-                .formLogin().loginPage("/login.zul")
-                .usernameParameter("username").passwordParameter("password")
+                .formLogin().loginPage("/views/login.zul")
+                .usernameParameter("j_username")
+                .passwordParameter("j_password")
+                .loginProcessingUrl("/j_spring_security_check")
+                .failureUrl("/views/login.zul?login_error=1")
                 .permitAll()
                 .and()
                 .logout()
+                .logoutUrl("/j_spring_security_logout")
+                .logoutSuccessUrl("/index.zul")
                 .permitAll()
                 .and().csrf().disable().exceptionHandling().accessDeniedPage("/403.zul");
     }

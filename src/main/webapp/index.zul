@@ -1,8 +1,23 @@
 <zk>
-	<window apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm')@init('ru.host.MyViewModel')"
-		validationMessages="@id('vmsgs')">
-		<hlayout>count: <label value="@load(vm.count)" /></hlayout>
-		<button label="add" onClick="@command('cmd')"/>
+	<window apply="org.zkoss.bind.BindComposer" viewModel="@id('vm')@init('ru.host.ViewModels.IndexViewModel')" validationMessages="@id('vmsgs')">
+		<menubar id="menubar" width="100%">
+			<menuitem label="Авторизация" href="/views/login.zul" id="Authorize" if="${vm.currentUser == null}"/>
+			<menuitem label="Выйти" href="/j_spring_security_logout" id="Logout" if="${vm.currentUser != null}"/>
+			<menu label="Администрирование" if="${vm.adminFlag}">
+				<menupopup>
+					<menuitem label="Процедуры"/>
+					<menuitem label="Специалисты"/>
+					<menuitem label="Кабинеты"/>
+				</menupopup>
+			</menu>
+		</menubar>
+		<label value="Текущий пользователь: ${vm.currentUser.username}" if="${vm.currentUser != null}"/>
 	</window>
+	<!--<window apply="org.zkoss.bind.BindComposer"-->
+		<!--viewModel="@id('vm')@init('ru.host.MyViewModel')"-->
+		<!--validationMessages="@id('vmsgs')">-->
+
+		<!--<hlayout>count: <label value="@load(vm.count)" /></hlayout>-->
+		<!--<button label="add" onClick="@command('cmd')"/>-->
+	<!--</window>-->
 </zk>

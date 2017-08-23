@@ -1,0 +1,28 @@
+package ru.host.ViewModels;
+
+import org.zkoss.bind.annotation.Init;
+import org.zkoss.zk.ui.select.annotation.VariableResolver;
+import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zul.ListModel;
+import org.zkoss.zul.ListModelList;
+import ru.host.model.DetailUser;
+import ru.host.repository.DetailUserRepository;
+
+import java.util.List;
+
+@VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
+public class LoginViewModel {
+    @WireVariable
+    private DetailUserRepository detailUserRepository;
+
+    private List<DetailUser> userList;
+
+    @Init
+    public void init(){
+        userList = detailUserRepository.findAll();
+    }
+
+    public ListModel<DetailUser> getUsers(){
+        return new ListModelList<DetailUser>(userList);
+    }
+}

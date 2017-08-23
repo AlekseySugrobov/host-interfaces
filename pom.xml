@@ -61,7 +61,14 @@
 			<artifactId>zhtml</artifactId>
 			<version>${zk.version}</version>
 		</dependency>
-		
+		<!-- https://mvnrepository.com/artifact/org.zkoss.zk/zkspring-core -->
+		<!--<dependency>-->
+			<!--<groupId>org.zkoss.zk</groupId>-->
+			<!--<artifactId>zkspring-core</artifactId>-->
+			<!--<version>3.1.1</version>-->
+		<!--</dependency>-->
+
+
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
