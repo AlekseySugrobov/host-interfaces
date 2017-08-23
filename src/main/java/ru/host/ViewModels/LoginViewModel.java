@@ -1,10 +1,13 @@
 package ru.host.ViewModels;
 
+import org.zkoss.bind.annotation.BindingParam;
+import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModel;
 import org.zkoss.zul.ListModelList;
+import org.zkoss.zul.Window;
 import ru.host.model.DetailUser;
 import ru.host.repository.DetailUserRepository;
 
@@ -24,5 +27,10 @@ public class LoginViewModel {
 
     public ListModel<DetailUser> getUsers(){
         return new ListModelList<DetailUser>(userList);
+    }
+
+    @Command
+    public void closeWindow(@BindingParam("win") Window win){
+        win.detach();
     }
 }

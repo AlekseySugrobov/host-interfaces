@@ -1,0 +1,56 @@
+<window title="Процедуры" border="normal" width="90%" height="90%" mode="modal"
+        position="center" apply="org.zkoss.bind.BindComposer" id="wndProcedure" viewModel="@id('vm') @init('ru.host.ViewModels.ProcedureViewModel')" closable="true">
+    <borderlayout>
+        <north size="83%">
+            <grid model="@load(vm.procedureList)" style="height: 100%;overflow-y: auto; width: 100%;">
+                <auxhead sclass="category-center">
+                    <auxheader label="Существующие процедуры" colspan="4" />
+                </auxhead>
+                <columns>
+                    <column width="20%">Наименование процедуры</column>
+                    <column width="40%">Описание процедуры</column>
+                    <column width="10%">Цена</column>
+                    <column width="10%">Действие</column>
+                </columns>
+                <template name="model">
+                    <row>
+                        <label value="@load(each.name)"/>
+                        <label value="@load(each.description)"/>
+                        <label value="@load(each.price)"/>
+                        <hbox>
+                            <button label="Редактировать" onClick="@command('editProcedure', procedure=each)" />
+                            <button label="Удалить" onClick="@command('deleteProcedure', procedure=each)"/>
+                        </hbox>
+                    </row>
+                </template>
+            </grid>
+        </north>
+        <south size="17%">
+            <grid>
+                <auxhead sclass="category-center">
+                    <auxheader label="Добавление удаление процедуры" colspan="3" />
+                </auxhead>
+                <rows>
+                    <row>
+                        Наименование процедуры:
+                        <textbox id="procedureName" value="@bind(vm.currentProcedure.name)" constraint="no empty"/>
+                    </row>
+                    <row>
+                        Описание процедуры:
+                        <textbox id="procedureDescription" value="@bind(vm.currentProcedure.description)"/>
+                    </row>
+                    <row>
+                        Цена:
+                        <doublebox id="procedurePrice" value="@bind(vm.currentProcedure.price)" constraint="no empty, no zero"/>
+                    </row>
+                    <row spans="2">
+                        <hbox>
+                            <button type="button" label="Закрыть" onClick="@command('closeWindow', win=wndProcedure)"/>
+                            <button type="button" label="Добавить процедуру" onClick="@command('saveProcedure')"/>
+                        </hbox>
+                    </row>
+                </rows>
+            </grid>
+        </south>
+    </borderlayout>
+</window>

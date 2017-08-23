@@ -1,15 +1,15 @@
 <zk>
-	<window apply="org.zkoss.bind.BindComposer" viewModel="@id('vm')@init('ru.host.ViewModels.IndexViewModel')" validationMessages="@id('vmsgs')">
+	<window apply="org.zkoss.bind.BindComposer, ru.host.composer.IndexComposer" viewModel="@id('vm')@init('ru.host.ViewModels.IndexViewModel')" validationMessages="@id('vmsgs')">
 		<menubar id="menubar" width="100%">
-			<menuitem label="Авторизация" href="/views/login.zul" id="Authorize" if="${vm.currentUser == null}"/>
-			<menuitem label="Выйти" href="/j_spring_security_logout" id="Logout" if="${vm.currentUser != null}"/>
+			<menuitem label="Авторизация" id="authorizeMenuItem" if="${vm.currentUser == null}"/>
 			<menu label="Администрирование" if="${vm.adminFlag}">
 				<menupopup>
-					<menuitem label="Процедуры"/>
+					<menuitem label="Процедуры" id="procedureMenuItem"/>
 					<menuitem label="Специалисты"/>
 					<menuitem label="Кабинеты"/>
 				</menupopup>
 			</menu>
+			<menuitem label="Выйти" href="/j_spring_security_logout" id="logout" if="${vm.currentUser != null}"/>
 		</menubar>
 		<label value="Текущий пользователь: ${vm.currentUser.username}" if="${vm.currentUser != null}"/>
 	</window>
