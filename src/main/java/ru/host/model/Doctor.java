@@ -68,4 +68,30 @@ public class Doctor {
     public void setProfession(Profession profession) {
         this.profession = profession;
     }
+
+    public String getFullName(){
+        return lastName + " " + firstName.charAt(0) + ". " + middleName.charAt(0) + ".";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Doctor doctor = (Doctor) o;
+
+        if (id != doctor.id) return false;
+        if (!firstName.equals(doctor.firstName)) return false;
+        if (!middleName.equals(doctor.middleName)) return false;
+        return lastName.equals(doctor.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + firstName.hashCode();
+        result = 31 * result + middleName.hashCode();
+        result = 31 * result + lastName.hashCode();
+        return result;
+    }
 }

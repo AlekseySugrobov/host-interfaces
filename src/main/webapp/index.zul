@@ -1,24 +1,86 @@
 <zk>
-	<window apply="org.zkoss.bind.BindComposer, ru.host.composer.IndexComposer" viewModel="@id('vm')@init('ru.host.ViewModels.IndexViewModel')" validationMessages="@id('vmsgs')">
-		<menubar id="menubar" width="100%">
-			<menuitem label="Авторизация" id="authorizeMenuItem" if="${vm.currentUser == null}"/>
-			<menu label="Администрирование" if="${vm.adminFlag}">
-				<menupopup>
-					<menuitem label="Кабинеты" id="doctorOfficeMenuItem"/>
-					<menuitem label="Процедуры" id="procedureMenuItem"/>
-					<menuitem label="Профессии" id="professionMenuItem"/>
-					<menuitem label="Специалисты" id="doctorMenuItem"/>
-				</menupopup>
-			</menu>
-			<menuitem label="Выйти" href="/j_spring_security_logout" id="logout" if="${vm.currentUser != null}"/>
-		</menubar>
-		<label value="Текущий пользователь: ${vm.currentUser.username}" if="${vm.currentUser != null}"/>
-	</window>
-	<!--<window apply="org.zkoss.bind.BindComposer"-->
-		<!--viewModel="@id('vm')@init('ru.host.MyViewModel')"-->
-		<!--validationMessages="@id('vmsgs')">-->
-
-		<!--<hlayout>count: <label value="@load(vm.count)" /></hlayout>-->
-		<!--<button label="add" onClick="@command('cmd')"/>-->
-	<!--</window>-->
+	<borderlayout apply="org.zkoss.bind.BindComposer, ru.host.composer.IndexComposer" viewModel="@id('vm')@init('ru.host.ViewModels.IndexViewModel')">
+		<north>
+			<div>
+				<menubar id="menubar" width="100%">
+					<menuitem label="Авторизация" id="authorizeMenuItem" if="${vm.currentUser == null}"/>
+					<menu label="Администрирование" if="${vm.adminFlag}">
+						<menupopup>
+							<menuitem label="Кабинеты" id="doctorOfficeMenuItem"/>
+							<menuitem label="Процедуры" id="procedureMenuItem"/>
+							<menuitem label="Профессии" id="professionMenuItem"/>
+							<menuitem label="Специалисты" id="doctorMenuItem"/>
+						</menupopup>
+					</menu>
+					<menuitem label="Выйти" href="/j_spring_security_logout" id="logout" if="${vm.currentUser != null}"/>
+				</menubar>
+				<label value="Текущий пользователь: ${vm.currentUser.username}" if="${vm.currentUser != null}"/>
+			</div>
+		</north>
+		<center>
+			<grid model="@load(vm.doctorVisitList)" style="overflow-y: auto; height: 100%;">
+				<auxhead sclass="category-center">
+					<auxheader label="Назначенные приемы" colspan="${vm.colSpan}"/>
+				</auxhead>
+				<columns>
+					<column>ФИО специалиста</column>
+					<column>Стоимость услуги</column>
+					<column>Процедура</column>
+					<column>День недели</column>
+					<column>Время</column>
+					<column>Кабинет приема</column>
+					<column if="${vm.adminFlag}">Действия</column>
+				</columns>
+				<template name="model">
+					<row>
+						<label value="@load(each.doctor.fullName)"/>
+						<label value="@load(each.procedure.price)"/>
+						<label value="@load(each.procedure.name)"/>
+						<label value="@load(each.dayOfWeek)"/>
+						<label value="@load(each.time) @converter('formattedDate', format='HH:mm')"/>
+						<label value="@load(each.doctor.doctorOffice.number)"/>
+						<hbox if="${vm.adminFlag}">
+							<button label="Редактировать" onClick="@command('editDoctorVisit', doctorVisit=each)" />
+							<button label="Удалить" onClick="@command('deleteDoctorVisit', doctorVisit=each)"/>
+						</hbox>
+					</row>
+				</template>
+			</grid>
+		</center>
+		<south if="${vm.adminFlag}">
+			<grid>
+				<rows>
+					<row>
+						ФИО доктора:
+						<combobox id="doctor" selectedItem="@bind(vm.currentDoctorVisit.doctor)" constraint="no empty"
+								model="@load(vm.doctorList)">
+							<template name="model">
+								<comboitem value="@load(each)" label="@load(each.fullName)"/>
+							</template>
+						</combobox>
+					</row>
+					<row>
+						Процедура:
+						<combobox id="procedure" selectedItem="@bind(vm.currentDoctorVisit.procedure)" constraint="no empty"
+								  model="@load(vm.procedureList)">
+							<template name="model">
+								<comboitem value="@load(each)" label="@load(each.name)"/>
+							</template>
+						</combobox>
+					</row>
+					<row>
+						День недели:
+						<combobox id="dayOfWeek" model="@load(vm.daysOfWeek)" selectedItem="@bind(vm.currentDoctorVisit.dayOfWeek)"/>
+					</row>
+					<row>
+						Время приема:
+						<timebox constraint="no empty" value="@bind(vm.currentDoctorVisit.time)" format="HH:mm"/>
+					</row>
+					<row>
+						<button type="button" label="Сохранить" onClick="@command('saveDoctorVisit')"/>
+					</row>
+				</rows>
+			</grid>
+		</south>
+	</borderlayout>
 </zk>

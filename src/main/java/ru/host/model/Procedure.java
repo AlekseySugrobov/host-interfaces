@@ -48,4 +48,29 @@ public class Procedure {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Procedure procedure = (Procedure) o;
+
+        if (id != procedure.id) return false;
+        if (Double.compare(procedure.price, price) != 0) return false;
+        if (!name.equals(procedure.name)) return false;
+        return description != null ? description.equals(procedure.description) : procedure.description == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = (int) (id ^ (id >>> 32));
+        result = 31 * result + name.hashCode();
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        temp = Double.doubleToLongBits(price);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
 }
