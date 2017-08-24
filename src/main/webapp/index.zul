@@ -4,7 +4,7 @@
 			<menuitem label="Авторизация" id="authorizeMenuItem" if="${vm.currentUser == null}"/>
 			<menu label="Администрирование" if="${vm.adminFlag}">
 				<menupopup>
-					<menuitem label="Кабинеты"/>
+					<menuitem label="Кабинеты" id="doctorOfficeMenuItem"/>
 					<menuitem label="Процедуры" id="procedureMenuItem"/>
 					<menuitem label="Профессии" id="professionMenuItem"/>
 					<menuitem label="Специалисты"/>

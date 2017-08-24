@@ -1,4 +1,4 @@
-<window title="Процедуры" border="normal" width="90%" height="90%" mode="modal"
+<window title="Профессии" border="normal" width="90%" height="90%" mode="modal"
         position="center" apply="org.zkoss.bind.BindComposer" id="wndProfession" viewModel="@id('vm') @init('ru.host.ViewModels.ProfessionViewModel')" closable="true">
     <borderlayout>
         <north size="83%">
@@ -28,11 +28,11 @@
                 <rows>
                     <row>
                         Наименование профессии:
-                        <textbox id="procedureName" value="@bind(vm.currentProfession.name)" constraint="no empty"/>
+                        <textbox id="professionName" value="@bind(vm.currentProfession.name)" constraint="no empty"/>
                     </row>
                     <row>
                         Описание профессии:
-                        <textbox id="procedureDescription" value="@bind(vm.currentProfession.description)"/>
+                        <textbox id="professionDescription" value="@bind(vm.currentProfession.description)"/>
                     </row>
                     <row spans="2">
                         <hbox>

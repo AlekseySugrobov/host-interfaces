@@ -1,0 +1,41 @@
+<window title="Кабинеты" border="normal" width="90%" height="90%" mode="modal"
+        position="center" apply="org.zkoss.bind.BindComposer" id="wndDoctorOffice" viewModel="@id('vm') @init('ru.host.ViewModels.DoctorOfficeViewModel')" closable="true">
+    <borderlayout>
+        <north size="90%">
+            <grid model="@load(vm.doctorOfficeList)" style="height: 100%;overflow-y: auto; width: 100%;">
+                <auxhead sclass="category-center">
+                    <auxheader label="Существующие кабинеты" colspan="2" />
+                </auxhead>
+                <columns>
+                    <column width="80%">Номер кабинета</column>
+                    <column width="10%">Действие</column>
+                </columns>
+                <template name="model">
+                    <row>
+                        <label value="@load(each.number)"/>
+                        <hbox>
+                            <button label="Редактировать" onClick="@command('editDoctorOffice', doctorOffice=each)" />
+                            <button label="Удалить" onClick="@command('deleteDoctorOffice', doctorOffice=each)"/>
+                        </hbox>
+                    </row>
+                </template>
+            </grid>
+        </north>
+        <south size="10%">
+            <grid>
+                <rows>
+                    <row>
+                        Номер кабинета:
+                        <textbox id="doctorOfficeNumber" value="@bind(vm.currentDoctorOffice.number)" constraint="no empty"/>
+                    </row>
+                    <row spans="2">
+                        <hbox>
+                            <button type="button" label="Закрыть" onClick="@command('closeWindow', win=wndDoctorOffice)"/>
+                            <button type="button" label="Сохранить" onClick="@command('saveDoctorOffice')"/>
+                        </hbox>
+                    </row>
+                </rows>
+            </grid>
+        </south>
+    </borderlayout>
+</window>
