@@ -4,9 +4,10 @@
 			<menuitem label="Авторизация" id="authorizeMenuItem" if="${vm.currentUser == null}"/>
 			<menu label="Администрирование" if="${vm.adminFlag}">
 				<menupopup>
-					<menuitem label="Процедуры" id="procedureMenuItem"/>
-					<menuitem label="Специалисты"/>
 					<menuitem label="Кабинеты"/>
+					<menuitem label="Процедуры" id="procedureMenuItem"/>
+					<menuitem label="Профессии" id="professionMenuItem"/>
+					<menuitem label="Специалисты"/>
 				</menupopup>
 			</menu>
 			<menuitem label="Выйти" href="/j_spring_security_logout" id="logout" if="${vm.currentUser != null}"/>

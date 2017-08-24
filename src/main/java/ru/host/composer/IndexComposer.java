@@ -13,9 +13,12 @@ public class IndexComposer extends SelectorComposer {
     }
 
     @Listen("onClick = #procedureMenuItem")
-    public void showProcedureModel(Event event){
+    public void showProcedureModal(Event event){
         showModal("/views/procedure.zul");
     }
+
+    @Listen("onClick = #professionMenuItem")
+    public void showProfessionModal(Event event) {showModal("/views/profession.zul");}
 
     private void showModal(String viewPath){
         Window window = (Window) Executions.createComponents(viewPath, null, null);

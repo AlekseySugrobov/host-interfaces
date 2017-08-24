@@ -1,0 +1,47 @@
+<window title="Процедуры" border="normal" width="90%" height="90%" mode="modal"
+        position="center" apply="org.zkoss.bind.BindComposer" id="wndProfession" viewModel="@id('vm') @init('ru.host.ViewModels.ProfessionViewModel')" closable="true">
+    <borderlayout>
+        <north size="83%">
+            <grid model="@load(vm.professionList)" style="height: 100%;overflow-y: auto; width: 100%;">
+                <auxhead sclass="category-center">
+                    <auxheader label="Существующие профессии" colspan="3" />
+                </auxhead>
+                <columns>
+                    <column width="20%">Наименование профессии</column>
+                    <column width="40%">Описание профессии</column>
+                    <column width="10%">Действие</column>
+                </columns>
+                <template name="model">
+                    <row>
+                        <label value="@load(each.name)"/>
+                        <label value="@load(each.description)"/>
+                        <hbox>
+                            <button label="Редактировать" onClick="@command('editProfession', profession=each)" />
+                            <button label="Удалить" onClick="@command('deleteProfession', profession=each)"/>
+                        </hbox>
+                    </row>
+                </template>
+            </grid>
+        </north>
+        <south size="17%">
+            <grid>
+                <rows>
+                    <row>
+                        Наименование профессии:
+                        <textbox id="procedureName" value="@bind(vm.currentProfession.name)" constraint="no empty"/>
+                    </row>
+                    <row>
+                        Описание профессии:
+                        <textbox id="procedureDescription" value="@bind(vm.currentProfession.description)"/>
+                    </row>
+                    <row spans="2">
+                        <hbox>
+                            <button type="button" label="Закрыть" onClick="@command('closeWindow', win=wndProfession)"/>
+                            <button type="button" label="Сохранить" onClick="@command('saveProfession')"/>
+                        </hbox>
+                    </row>
+                </rows>
+            </grid>
+        </south>
+    </borderlayout>
+</window>

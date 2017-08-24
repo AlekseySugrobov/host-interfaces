@@ -46,7 +46,7 @@
                     <row spans="2">
                         <hbox>
                             <button type="button" label="Закрыть" onClick="@command('closeWindow', win=wndProcedure)"/>
-                            <button type="button" label="Добавить процедуру" onClick="@command('saveProcedure')"/>
+                            <button type="button" label="Сохранить" onClick="@command('saveProcedure')"/>
                         </hbox>
                     </row>
                 </rows>
