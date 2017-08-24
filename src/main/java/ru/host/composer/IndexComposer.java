@@ -23,6 +23,9 @@ public class IndexComposer extends SelectorComposer {
     @Listen("onClick = #doctorOfficeMenuItem")
     public void showDoctorOfficeModal(Event event) {showModal("/views/doctorOffice.zul");}
 
+    @Listen("onClick = #doctorMenuItem")
+    public void showDoctorModal(Event event){showModal("/views/doctor.zul");}
+
     private void showModal(String viewPath){
         Window window = (Window) Executions.createComponents(viewPath, null, null);
         window.doModal();

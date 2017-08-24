@@ -37,5 +37,25 @@ public class Profession {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Profession that = (Profession) o;
+
+        if (id != that.id) return false;
+        if (!name.equals(that.name)) return false;
+        return description != null ? description.equals(that.description) : that.description == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + name.hashCode();
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        return result;
+    }
 }
 

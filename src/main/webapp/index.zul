@@ -7,7 +7,7 @@
 					<menuitem label="Кабинеты" id="doctorOfficeMenuItem"/>
 					<menuitem label="Процедуры" id="procedureMenuItem"/>
 					<menuitem label="Профессии" id="professionMenuItem"/>
-					<menuitem label="Специалисты"/>
+					<menuitem label="Специалисты" id="doctorMenuItem"/>
 				</menupopup>
 			</menu>
 			<menuitem label="Выйти" href="/j_spring_security_logout" id="logout" if="${vm.currentUser != null}"/>

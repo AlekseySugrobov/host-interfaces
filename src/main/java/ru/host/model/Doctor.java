@@ -17,6 +17,17 @@ public class Doctor {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="doctor_profession_id")
     private Profession profession;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="doctor_office_id")
+    private DoctorOffice doctorOffice;
+
+    public DoctorOffice getDoctorOffice() {
+        return doctorOffice;
+    }
+
+    public void setDoctorOffice(DoctorOffice doctorOffice) {
+        this.doctorOffice = doctorOffice;
+    }
 
     public long getId() {
         return id;

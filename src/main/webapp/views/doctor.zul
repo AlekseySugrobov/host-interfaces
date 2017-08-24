@@ -1,0 +1,75 @@
+<window title="Специалисты" border="normal" width="90%" height="90%" mode="modal"
+        position="center" apply="org.zkoss.bind.BindComposer" id="wndDoctor" viewModel="@id('vm') @init('ru.host.ViewModels.DoctorViewModel')" closable="true">
+    <borderlayout>
+        <north size="75%">
+            <grid model="@load(vm.doctorList)" style="height: 100%;overflow-y: auto; width: 100%;">
+                <auxhead sclass="category-center">
+                    <auxheader label="Существующие Сециалисты" colspan="6" />
+                </auxhead>
+                <columns>
+                    <column width="20%">Имя</column>
+                    <column width="20%">Отчество</column>
+                    <column width="20%">Фамилия</column>
+                    <column width="10%">Кабинет</column>
+                    <column width="10%">Специализация</column>
+                    <column width="10%">Действие</column>
+                </columns>
+                <template name="model">
+                    <row>
+                        <label value="@load(each.firstName)"/>
+                        <label value="@load(each.middleName)"/>
+                        <label value="@load(each.lastName)"/>
+                        <label value="@load(each.doctorOffice.number)"/>
+                        <label value="@load(each.profession.name)"/>
+                        <hbox>
+                            <button label="Редактировать" onClick="@command('editDoctor', doctor=each)" />
+                            <button label="Удалить" onClick="@command('deleteDoctor', doctor=each)"/>
+                        </hbox>
+                    </row>
+                </template>
+            </grid>
+        </north>
+        <south size="25%">
+            <grid>
+                <rows>
+                    <row>
+                        Имя:
+                        <textbox id="doctorFirstName" value="@bind(vm.currentDoctor.firstName)" constraint="no empty"/>
+                    </row>
+                    <row>
+                        Отчество:
+                        <textbox id="doctorMiddleName" value="@bind(vm.currentDoctor.middleName)" constraint="no empty"/>
+                    </row>
+                    <row>
+                        Фамилия:
+                        <textbox id="doctorLastName" value="@bind(vm.currentDoctor.lastName)" constraint="no empty"/>
+                    </row>
+                    <row>
+                        Кабинет:
+                        <combobox id="doctorOffice" selectedItem="@bind(vm.currentDoctor.doctorOffice)" constraint="no empty"
+                                  model="@load(vm.doctorOfficeList)">
+                            <template name="model">
+                                <comboitem value="@load(each)" label="@load(each.number)"/>
+                            </template>
+                        </combobox>
+                    </row>
+                    <row>
+                        Специализация:
+                        <combobox id="profession" selectedItem="@bind(vm.currentDoctor.profession)" constraint="no empty"
+                                 model="@load(vm.professionList)">
+                            <template name="model">
+                                <comboitem value="@load(each)" label="@load(each.name)"/>
+                            </template>
+                        </combobox>
+                    </row>
+                    <row spans="2">
+                        <hbox>
+                            <button type="button" label="Закрыть" onClick="@command('closeWindow', win=wndDoctor)"/>
+                            <button type="button" label="Сохранить" onClick="@command('saveDoctor')"/>
+                        </hbox>
+                    </row>
+                </rows>
+            </grid>
+        </south>
+    </borderlayout>
+</window>
